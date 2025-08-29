@@ -1,0 +1,14 @@
+# cache
+.idea/
+__pycache__/
+
+
+# virtual env
+.venv/
+
+# data
+data/
+
+# secrets
+.env
+
