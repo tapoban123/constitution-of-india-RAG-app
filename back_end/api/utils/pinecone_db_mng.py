@@ -1,6 +1,6 @@
 from langchain_core.documents import Document
 from langchain_pinecone import PineconeVectorStore
-from langchain_text_splitters import RecursiveCharacterTextSplitter
+from langchain.text_splitter import RecursiveCharacterTextSplitter
 
 from utils.constants import PINECONE
 from pinecone import Pinecone, CloudProvider, AwsRegion, Metric, IndexEmbed, EmbedModel, ServerlessSpec
