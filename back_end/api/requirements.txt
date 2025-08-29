@@ -2,7 +2,7 @@ dotenv
 langchain
 langchain-core
 pypdf
-pinecone
+
 fastapi[standard]
 langchain-mistralai
 langchain-pinecone
