@@ -58,13 +58,13 @@ def home():
     return "Welcome to Indian Constitution API."
 
 
-@app.get("/content/{query}", response_model=ContentOutputModel)
-def get_content(query: str):
-    context, page_nos = pinecone_mgr.perform_similarity_search(query=query)
+@app.post("/content", response_model=ContentOutputModel)
+def get_content(query: QueryModel):
+    context, page_nos = pinecone_mgr.perform_similarity_search(query=query.query)
     llm = get_llm()
     prompt = get_prompt()
     output_parser = StrOutputParser()
 
     chain = prompt | llm | output_parser
-    result = chain.invoke({"context": context, "query": query})
+    result = chain.invoke({"context": context, "query": query.query})
     return ContentOutputModel(answer=result, page_nos=page_nos)
