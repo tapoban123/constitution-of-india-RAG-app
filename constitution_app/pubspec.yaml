@@ -34,6 +34,13 @@ dependencies:
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.8
+  flutter_bloc: ^9.1.1
+  hive_flutter: ^1.1.0
+  flutter_screenutil: ^5.9.3
+  http: ^1.5.0
+  markdown_widget: ^2.3.2+8
+  freezed_annotation: ^2.4.4
+  uuid: ^4.5.1
 
 dev_dependencies:
   flutter_test:
@@ -45,6 +52,10 @@ dev_dependencies:
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
   flutter_lints: ^5.0.0
+  hive_generator: ^2.0.1
+  build_runner: ^2.4.13
+  freezed: ^2.5.2
+  json_serializable: ^6.8.0
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -58,8 +69,8 @@ flutter:
   uses-material-design: true
 
   # To add assets to your application, add an assets section, like this:
-  # assets:
-  #   - images/a_dot_burr.jpeg
+  assets:
+     - assets/images/
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
@@ -73,15 +84,31 @@ flutter:
   # "family" key with the font family name, and a "fonts" key with a
   # list giving the asset and other descriptors for the font. For
   # example:
-  # fonts:
-  #   - family: Schyler
-  #     fonts:
-  #       - asset: fonts/Schyler-Regular.ttf
-  #       - asset: fonts/Schyler-Italic.ttf
+  fonts:
+     - family: Lexend-Bold
+       fonts:
+         - asset: assets/fonts/Lexend-Bold.ttf
+     - family: Lexend-Light
+       fonts:
+         - asset: assets/fonts/Lexend-Light.ttf
+     - family: Lexend-Medium
+       fonts:
+         - asset: assets/fonts/Lexend-Medium.ttf
+     - family: Lexend-Regular
+       fonts:
+         - asset: assets/fonts/Lexend-Regular.ttf
+     - family: Lexend-SemiBold
+       fonts:
+         - asset: assets/fonts/Lexend-SemiBold.ttf
+     - family: Lexend-VariableWeight
+       fonts:
+         - asset: assets/fonts/Lexend-VariableFont_wght.ttf
+
+#         - asset: fonts/Schyler-Italic.ttf
   #         style: italic
-  #   - family: Trajan Pro
-  #     fonts:
-  #       - asset: fonts/TrajanPro.ttf
+#     - family: Trajan Pro
+#       fonts:
+#         - asset: fonts/TrajanPro.ttf
   #       - asset: fonts/TrajanPro_Bold.ttf
   #         weight: 700
   #
