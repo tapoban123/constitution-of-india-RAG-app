@@ -5,12 +5,23 @@ from pydantic import BaseModel
 from langchain_core.prompts import PromptTemplate
 from langchain_core.output_parsers import StrOutputParser
 from langchain_mistralai import ChatMistralAI
+from fastapi.middleware.cors import CORSMiddleware
 
 from utils.pinecone_db_mng import PineconeManager
 from utils.constants import MISTRAL_AI
 
 app = FastAPI()
 pinecone_mgr = PineconeManager(index_name="indian-constitution")
+
+origins = ["*"]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    # allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 
 def get_llm() -> ChatMistralAI:
