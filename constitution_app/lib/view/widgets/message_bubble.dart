@@ -13,22 +13,25 @@ class MessageBubble extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    String msg = message.message;
+    if (message.page_nos != null) {
+      msg =
+          "${message.message}\n\n\n**Page numbers: ${message.page_nos!.join(", ")}**";
+    }
     return Align(
       alignment: message.sender == SenderType.USER
           ? Alignment.centerRight
           : Alignment.centerLeft,
       child: Container(
-        constraints: BoxConstraints(
-          maxWidth: screenWidth(context) * 0.8
-        ),
+        constraints: BoxConstraints(maxWidth: screenWidth(context) * 0.8),
         child: Card(
           color: message.sender == SenderType.USER
-              ? Color(0xFF4169E1)
-              : Colors.white30,
+              ? Color(0xFF50C878)
+              : Color(0xFF28282B),
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 10.0),
             child: MarkdownBlock(
-              data: message.message,
+              data: msg,
               selectable: true,
               config: MarkdownConfig(
                 configs: [
@@ -36,6 +39,9 @@ class MessageBubble extends StatelessWidget {
                     textStyle: TextStyle(
                       fontSize: 15.sp,
                       fontFamily: FontFamily.Lexend_VariableWgt.name,
+                      color: message.sender == SenderType.USER
+                          ? Colors.black
+                          : Colors.white70,
                     ),
                   ),
                 ],

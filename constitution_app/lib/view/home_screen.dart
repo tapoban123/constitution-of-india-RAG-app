@@ -1,6 +1,7 @@
 import 'package:constitution_app/controllers/chat_data_bloc/chat_data_bloc.dart';
 import 'package:constitution_app/controllers/chat_data_bloc/chat_data_events.dart';
 import 'package:constitution_app/controllers/chat_data_bloc/chat_data_states.dart';
+import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:constitution_app/models/message_model.dart';
 import 'package:constitution_app/utils/constants.dart';
 import 'package:constitution_app/view/widgets/message_bubble.dart';
@@ -27,13 +28,13 @@ class HomeScreen extends StatelessWidget {
         elevation: 0,
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         systemOverlayStyle: SystemUiOverlayStyle(
-          systemNavigationBarColor: Colors.black26,
+          systemNavigationBarColor: Color(0xFF0F0E0E),
           systemNavigationBarIconBrightness: Brightness.light,
         ),
-        actions: [
-          IconButton(onPressed: () {}, icon: Icon(Icons.search_rounded)),
-          IconButton(onPressed: () {}, icon: Icon(Icons.history)),
-        ],
+        // actions: [
+        //   IconButton(onPressed: () {}, icon: Icon(Icons.search_rounded)),
+        //   IconButton(onPressed: () {}, icon: Icon(Icons.history)),
+        // ],
       ),
       body: SafeArea(
         child: Column(
@@ -43,7 +44,9 @@ class HomeScreen extends StatelessWidget {
                 padding: EdgeInsets.symmetric(horizontal: 12.0.w),
                 child: BlocBuilder<ChatDataBloc, ChatDataState>(
                   builder: (context, state) {
-                    if (state.messages.isEmpty) {
+                    final reversedMsgs = state.messages.reversed.toList();
+
+                    if (reversedMsgs.isEmpty) {
                       return Center(
                         child: Text(
                           "Start asking queries...",
@@ -59,11 +62,32 @@ class HomeScreen extends StatelessWidget {
                       itemBuilder: (context, index) {
                         return Column(
                           children: [
-                            MessageBubble(message: state.messages[index]),
-                            state.status == ChatDataStatus.loading
+                            MessageBubble(message: reversedMsgs[index]),
+                            state.status == ChatDataStatus.loading && index == 0
                                 ? Align(
                                     alignment: Alignment.centerLeft,
-                                    child: Text("loading..."),
+                                    child: Container(
+                                      padding: const EdgeInsets.all(10.0),
+                                      decoration: BoxDecoration(
+                                        color: Color(0xFF28282B),
+                                        borderRadius: BorderRadius.circular(10),
+                                      ),
+                                      child: AnimatedTextKit(
+                                        animatedTexts: [
+                                          TypewriterAnimatedText(
+                                            'Loading...',
+                                            speed: Duration(milliseconds: 100),
+                                            textStyle: TextStyle(
+                                              fontSize: 15.sp,
+                                              fontFamily: FontFamily
+                                                  .Lexend_Regular
+                                                  .name,
+                                            ),
+                                            cursor: "",
+                                          ),
+                                        ],
+                                      ),
+                                    ),
                                   )
                                 : SizedBox.shrink(),
                           ],
@@ -102,7 +126,7 @@ class _ChatQueryInputFieldState extends State<_ChatQueryInputField> {
     return Container(
       margin: EdgeInsets.only(top: 6.w),
       padding: EdgeInsets.symmetric(vertical: 12.w, horizontal: 12.w),
-      decoration: BoxDecoration(color: Colors.black26),
+      decoration: BoxDecoration(color: Color(0xFF0F0E0E)),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -125,6 +149,9 @@ class _ChatQueryInputFieldState extends State<_ChatQueryInputField> {
                 hintText: "Enter your query...",
               ),
               cursorColor: Colors.white70,
+              keyboardType: TextInputType.text,
+              textCapitalization: TextCapitalization.sentences,
+              textInputAction: TextInputAction.newline,
             ),
           ),
           IconButton(

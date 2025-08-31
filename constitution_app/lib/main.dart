@@ -3,6 +3,7 @@ import 'package:constitution_app/services/ai_generation_service.dart';
 import 'package:constitution_app/view/home_screen.dart';
 import 'package:constitution_app/view/splash_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -18,21 +19,21 @@ class MyApp extends StatelessWidget {
     return ScreenUtilInit(
       designSize: const Size(375, 812),
       minTextAdapt: true,
-      builder: (context, child) => MaterialApp(
-        debugShowCheckedModeBanner: false,
-        title: "Constitution of India",
-        theme: ThemeData.dark(),
-        home: child,
-      ),
-      child: MultiBlocProvider(
+      builder: (context, child) => MultiBlocProvider(
         providers: [
           BlocProvider(
             create: (context) =>
                 ChatDataBloc(aiGenerationService: AiGenerationService()),
           ),
         ],
-        child: HomeScreen(),
+        child: MaterialApp(
+          debugShowCheckedModeBanner: false,
+          title: "Indian Constitutional Law",
+          theme: ThemeData.dark(),
+          home: child,
+        ),
       ),
+      child: SplashScreen(),
     );
   }
 }
