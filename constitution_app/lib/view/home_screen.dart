@@ -55,7 +55,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 await launchUrl(url, mode: LaunchMode.externalApplication);
               }
             },
-            icon: Icon(Icons.library_books),
+            icon: Icon(Icons.library_books, color: Colors.lightBlue,),
           ),
           IconButton(
             onPressed: () {
