@@ -15,7 +15,7 @@ class ChatDataBloc extends Bloc<ChatDataEvents, ChatDataState> {
     : _aiGenerationService = aiGenerationService,
       super(ChatDataState()) {
     on<AddNewMessageEvent>(addNewMessage);
-    on<ReceiveOldMessagesEvent>(receiveOldMessages);
+    on<ReceiveOldMessagesEvent>(fetchOldMessages);
     on<GenerateAiResponseEvent>(generateAiResponse);
   }
 
@@ -23,7 +23,7 @@ class ChatDataBloc extends Bloc<ChatDataEvents, ChatDataState> {
     emit(state.copyWith(messages: [...state.messages, event.newMessage]));
   }
 
-  void receiveOldMessages(ReceiveOldMessagesEvent event, Emitter emit) {
+  void fetchOldMessages(ReceiveOldMessagesEvent event, Emitter emit) {
 
   }
 
@@ -41,8 +41,6 @@ class ChatDataBloc extends Bloc<ChatDataEvents, ChatDataState> {
         sender: SenderType.AI,
         page_nos: aiResponse.page_nos,
       );
-
-      log(newMessage.toString());
 
       emit(
         state.copyWith(

@@ -18,18 +18,11 @@ class AiGenerationService {
         },
         body: jsonEncode({"query": query}),
       );
-      log(response.body);
-      log(response.statusCode.toString());
-      log(response.request.toString());
+
       if (response.statusCode == 200) {
-        log(response.body);
-        log(response.statusCode.toString());
-        log(response.request.toString());
         return AiResponseModel.fromJson(jsonDecode(response.body));
       }
-      log(response.body);
-      log(response.statusCode.toString());
-      log(response.request.toString());
+      throw Exception("[ERROR ${response.statusCode}] Failed to fetch data.");
     } catch (e) {
       log(e.toString());
       return null;

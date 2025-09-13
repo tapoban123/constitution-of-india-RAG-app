@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:uuid/uuid.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -137,6 +138,9 @@ class _ChatQueryInputFieldState extends State<_ChatQueryInputField> {
               onTapOutside: (event) {
                 _focusNode.unfocus();
               },
+              onTap: () {
+                Fluttertoast.cancel();
+              },
               controller: _queryController,
               decoration: InputDecoration(
                 enabledBorder: OutlineInputBorder(
@@ -156,6 +160,16 @@ class _ChatQueryInputFieldState extends State<_ChatQueryInputField> {
           ),
           IconButton(
             onPressed: () {
+              if (_queryController.text.isEmpty) {
+                Fluttertoast.cancel();
+
+                Fluttertoast.showToast(
+                  msg: "Please enter your query.",
+                  backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+                  textColor: Colors.white,
+                );
+                return;
+              }
               final newMessage = MessageModel(
                 id: Uuid().v4(),
                 sender: SenderType.USER,
