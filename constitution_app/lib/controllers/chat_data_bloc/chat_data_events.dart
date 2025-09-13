@@ -19,3 +19,7 @@ final class GenerateAiResponseEvent extends ChatDataEvents {
 
   GenerateAiResponseEvent({required this.query});
 }
+
+final class DeleteChatHistoryEvent extends ChatDataEvents {
+  DeleteChatHistoryEvent();
+}

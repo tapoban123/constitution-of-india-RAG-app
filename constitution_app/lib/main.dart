@@ -1,13 +1,16 @@
 import 'package:constitution_app/controllers/chat_data_bloc/chat_data_bloc.dart';
+import 'package:constitution_app/controllers/chat_history_cubit.dart';
 import 'package:constitution_app/services/ai_generation_service.dart';
-import 'package:constitution_app/view/home_screen.dart';
+import 'package:constitution_app/services/chat_history_local_storage_service.dart';
+import 'package:constitution_app/utils/hive_config.dart';
 import 'package:constitution_app/view/splash_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-void main() {
+void main() async {
+  await HiveConfig().init();
+
   runApp(const MyApp());
 }
 
@@ -22,8 +25,15 @@ class MyApp extends StatelessWidget {
       builder: (context, child) => MultiBlocProvider(
         providers: [
           BlocProvider(
-            create: (context) =>
-                ChatDataBloc(aiGenerationService: AiGenerationService()),
+            create: (context) => ChatDataBloc(
+              aiGenerationService: AiGenerationService(),
+              chatHistoryLocalStorageService: ChatHistoryLocalStorageService(),
+            ),
+          ),
+          BlocProvider(
+            create: (context) => ChatHistoryCubit(
+              chatHistoryLocalStorageService: ChatHistoryLocalStorageService(),
+            ),
           ),
         ],
         child: MaterialApp(

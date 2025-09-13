@@ -1,4 +1,6 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 enum FontFamily {
   Lexend_Bold,
@@ -34,4 +36,13 @@ double screenWidth(BuildContext context) {
 
 double screenHeight(BuildContext context) {
   return MediaQuery.of(context).size.height;
+}
+
+void showFlutterToast(BuildContext context, String msg) {
+  Fluttertoast.showToast(
+    msg: msg,
+    backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+    textColor: Colors.white,
+    fontAsset: "assets/fonts/Lexend-Regular.ttf"
+  );
 }
