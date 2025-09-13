@@ -14,19 +14,8 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:uuid/uuid.dart';
 
-class HomeScreen extends StatefulWidget {
+class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
-
-  @override
-  State<HomeScreen> createState() => _HomeScreenState();
-}
-
-class _HomeScreenState extends State<HomeScreen> {
-  @override
-  void initState() {
-    context.read<ChatHistoryCubit>().fetchChatHistory();
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -55,7 +44,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 await launchUrl(url, mode: LaunchMode.externalApplication);
               }
             },
-            icon: Icon(Icons.library_books, color: Colors.lightBlue,),
+            icon: Icon(Icons.library_books, color: Colors.lightBlue),
           ),
           IconButton(
             onPressed: () {
@@ -152,6 +141,50 @@ class _HomeScreenState extends State<HomeScreen> {
           if (state.status == ChatHistoryStatus.loading) {
             return Center(child: CircularProgressIndicator());
           }
+
+          if (state.status == ChatHistoryStatus.error) {
+            return Center(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                spacing: 20.h,
+                children: [
+                  SizedBox(
+                    width: screenWidth(context) * 0.8,
+                    child: Text(
+                      "Failed to fetch chat history due to an unexpected error.",
+                      style: TextStyle(
+                        fontFamily: FontFamily.Lexend_Regular.name,
+                        fontSize: 18.sp,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+                  ElevatedButton(
+                    onPressed: () {
+                      context
+                          .read<ChatHistoryCubit>()
+                          .continueWithoutChatHistory();
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.indigo,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadiusGeometry.circular(12.r),
+                      ),
+                    ),
+                    child: Text(
+                      "Continue without chat history",
+                      style: TextStyle(
+                        fontFamily: FontFamily.Lexend_Bold.name,
+
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            );
+          }
+
           context.read<ChatDataBloc>().add(
             ReceiveOldMessagesEvent(oldMessages: state.msgs),
           );
@@ -292,7 +325,7 @@ class _ChatQueryInputFieldState extends State<_ChatQueryInputField> {
               if (_queryController.text.isEmpty) {
                 Fluttertoast.cancel();
 
-                showFlutterToast(context, "Please enter your query.");
+                showFlutterToast(context, "Enter query first.");
                 return;
               }
               final newMessage = MessageModel(

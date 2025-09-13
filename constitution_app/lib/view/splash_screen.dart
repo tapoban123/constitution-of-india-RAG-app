@@ -1,8 +1,10 @@
 import 'dart:async';
 
+import 'package:constitution_app/controllers/chat_history_cubit.dart';
 import 'package:constitution_app/utils/constants.dart';
 import 'package:constitution_app/view/home_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -18,6 +20,8 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
+    context.read<ChatHistoryCubit>().fetchChatHistory();
+
     timer = Timer(Duration(seconds: 1), () {
       Navigator.of(context).pushAndRemoveUntil(
         PageRouteBuilder(

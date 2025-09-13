@@ -38,9 +38,18 @@ class ChatHistoryCubit extends Cubit<ChatHistoryState> {
 
   void fetchChatHistory() async {
     emit(state.copyWith(status: ChatHistoryStatus.loading));
-    final chatHistory = await _chatHistoryLocalStorageService
-        .fetchChatHistory();
+    try {
+      final chatHistory = await _chatHistoryLocalStorageService
+          .fetchChatHistory();
+      emit(
+        state.copyWith(status: ChatHistoryStatus.success, msgs: chatHistory),
+      );
+    } catch (e) {
+      emit(state.copyWith(status: ChatHistoryStatus.error));
+    }
+  }
 
-    emit(state.copyWith(status: ChatHistoryStatus.success, msgs: chatHistory));
+  void continueWithoutChatHistory() {
+    emit(state.copyWith(status: ChatHistoryStatus.success, msgs: []));
   }
 }
