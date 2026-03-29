@@ -5,8 +5,8 @@ An intelligent, high-performance RAG (Retrieval-Augmented Generation) applicatio
 ---
 
 ## 📱 Experience the App
-> [!IMPORTANT]
-> **[PLACEHOLDER: Upload your screen recording or GIF here to show the UI and RAG flow]**
+
+https://github.com/user-attachments/assets/ed56eea8-6e74-498b-8a8d-fa5c56656fb5
 
 ---
 
