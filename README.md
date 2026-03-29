@@ -16,7 +16,7 @@ An intelligent, high-performance RAG (Retrieval-Augmented Generation) applicatio
 ## 💡 The Problem & The Solution
 The Indian Constitution is one of the most comprehensive legal documents in the world. For most people, finding specific information or understanding legal nuances within its hundreds of articles is a daunting task.
 
-**Constitution AI** solves this by acting as a bridge between the citizen and the document. It doesn't just guess; it retrieves the exact legal context from the official text and explains it in simple, human terms. 
+**Indian Constitution AI** solves this by acting as a bridge between the citizen and the document. It doesn't just guess; it retrieves the exact legal context from the official text and explains it in simple, human terms. 
 
 ### What makes this different?
 - **Zero Hallucination**: The system is strictly instructed to only answer using the retrieved context from the constitution. If it isn't in the law, it won't be in the answer.
